@@ -17,8 +17,8 @@ void printReceipt()
 {
     cout << "------------------------------------------RECEIPT-----------------------------------------" << endl;
     //print order of each item
-    for (auto s : order)
-        cout << s << "\n";
+    for (int i = 0; i < order.size(); i++)
+        cout << order[i] << ": " << (basket[i].getPrice() + tax.getTaxOnItem(basket[i])) << "\n";
 
     double salesTax = 0.0, total = 0.0;
     for (auto item : basket)
@@ -28,7 +28,7 @@ void printReceipt()
     }
     total += salesTax;
     //print sales tax and total bill
-    cout << "Sales Tax: " << salesTax << "\n";
+    cout << "Sales Taxes: " << salesTax << "\n";
     cout << "Total: " << total << "\n";
     cout << "------------------------------------------------------------------------------------------" << endl;
 }
@@ -46,7 +46,7 @@ int main()
             break;
 
         //push orders to our vector
-        order.push_back(s);
+        order.push_back(s.substr(0, s.length() - 8));
 
         //using string stream to iterate over words of string
         stringstream ss(s);
@@ -56,7 +56,6 @@ int main()
 
         while (ss >> temp)
         {
-
             //decide whether item is imported or not and items category based on words in given sample
             if (temp == "imported")
                 imported = true;
